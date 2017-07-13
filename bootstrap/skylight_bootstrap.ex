@@ -244,11 +244,17 @@ defmodule SkylightBootstrap do
   end
 
   defp default_opts(opts) do
+    base_url = if opts[:use_deps_dir] == true do
+        Path.join(File.cwd!, "deps/skylight")
+      else
+        File.cwd!
+      end
+
     opts
     |> Keyword.put_new(:arch, arch_and_os())
-    |> Keyword.put_new(:archives_dir, Path.join(File.cwd!, "tmp"))
-    |> Keyword.put_new(:c_src_dir, Path.join(File.cwd!, "c_src"))
-    |> Keyword.put_new(:priv_dir, Path.join(File.cwd!, "priv"))
+    |> Keyword.put_new(:archives_dir, Path.join(base_url, "tmp"))
+    |> Keyword.put_new(:c_src_dir, Path.join(base_url, "c_src"))
+    |> Keyword.put_new(:priv_dir, Path.join(base_url, "priv"))
     |> Keyword.put_new(:libskylight_name, "libskylight.#{so_ext()}")
   end
 end

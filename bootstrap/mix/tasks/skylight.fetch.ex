@@ -6,6 +6,8 @@ defmodule Mix.Tasks.Skylight.Fetch do
   @moduledoc "TODO"
 
   def run(_args) do
-    :ok = SkylightBootstrap.fetch()
+    opts = Keyword.put_new([], :use_deps_dir, true)
+
+    :ok = SkylightBootstrap.fetch(opts)
   end
 end
